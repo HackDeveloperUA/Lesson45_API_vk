@@ -8,6 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		511C63F94DE91DC689ED3395 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF581299F336781BA3A07B2 /* libPods.a */; };
+		6C636BA91B94DB89001E55A1 /* ASServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BA81B94DB89001E55A1 /* ASServerManager.m */; };
+		6C636BAD1B94DD79001E55A1 /* ASUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BAC1B94DD79001E55A1 /* ASUser.m */; };
+		6C636BB01B94DD84001E55A1 /* ASFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BAF1B94DD84001E55A1 /* ASFriend.m */; };
+		6C636BB31B94DDAA001E55A1 /* ASFollowerSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BB21B94DDAA001E55A1 /* ASFollowerSubscription.m */; };
+		6C636BB71B94E7D2001E55A1 /* ASSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BB61B94E7D2001E55A1 /* ASSubtitleCell.m */; };
+		6C9A99011B94CC8C00F394A5 /* ASGeneralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99001B94CC8C00F394A5 /* ASGeneralCell.m */; };
+		6C9A99041B94CCB300F394A5 /* ASStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99031B94CCB300F394A5 /* ASStatusCell.m */; };
+		6C9A99071B94CD6A00F394A5 /* ASButtonFollowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99061B94CD6A00F394A5 /* ASButtonFollowerCell.m */; };
+		6C9A990A1B94CDC800F394A5 /* ASWallTextImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99091B94CDC800F394A5 /* ASWallTextImageCell.m */; };
+		6C9A990D1B94CE7200F394A5 /* ASWallTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A990C1B94CE7200F394A5 /* ASWallTextCell.m */; };
+		6C9A99121B94D00C00F394A5 /* ASFriendTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99111B94D00C00F394A5 /* ASFriendTVC.m */; };
+		6C9A99151B94D03F00F394A5 /* ASUserTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99141B94D03F00F394A5 /* ASUserTVC.m */; };
+		6C9A99181B94D06900F394A5 /* ASFollowerSubscriptionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99171B94D06900F394A5 /* ASFollowerSubscriptionTVC.m */; };
 		6CCEF4CD1B922AD300E1A11B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEF4CC1B922AD300E1A11B /* main.m */; };
 		6CCEF4D01B922AD300E1A11B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEF4CF1B922AD300E1A11B /* AppDelegate.m */; };
 		6CCEF4D91B922AD300E1A11B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CCEF4D71B922AD300E1A11B /* Main.storyboard */; };
@@ -28,6 +41,32 @@
 
 /* Begin PBXFileReference section */
 		2DF581299F336781BA3A07B2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C636BA71B94DB89001E55A1 /* ASServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASServerManager.h; sourceTree = "<group>"; };
+		6C636BA81B94DB89001E55A1 /* ASServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASServerManager.m; sourceTree = "<group>"; };
+		6C636BAB1B94DD79001E55A1 /* ASUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUser.h; sourceTree = "<group>"; };
+		6C636BAC1B94DD79001E55A1 /* ASUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUser.m; sourceTree = "<group>"; };
+		6C636BAE1B94DD84001E55A1 /* ASFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFriend.h; sourceTree = "<group>"; };
+		6C636BAF1B94DD84001E55A1 /* ASFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFriend.m; sourceTree = "<group>"; };
+		6C636BB11B94DDAA001E55A1 /* ASFollowerSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFollowerSubscription.h; sourceTree = "<group>"; };
+		6C636BB21B94DDAA001E55A1 /* ASFollowerSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFollowerSubscription.m; sourceTree = "<group>"; };
+		6C636BB51B94E7D2001E55A1 /* ASSubtitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSubtitleCell.h; sourceTree = "<group>"; };
+		6C636BB61B94E7D2001E55A1 /* ASSubtitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSubtitleCell.m; sourceTree = "<group>"; };
+		6C9A98FF1B94CC8C00F394A5 /* ASGeneralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASGeneralCell.h; sourceTree = "<group>"; };
+		6C9A99001B94CC8C00F394A5 /* ASGeneralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASGeneralCell.m; sourceTree = "<group>"; };
+		6C9A99021B94CCB300F394A5 /* ASStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStatusCell.h; sourceTree = "<group>"; };
+		6C9A99031B94CCB300F394A5 /* ASStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStatusCell.m; sourceTree = "<group>"; };
+		6C9A99051B94CD6A00F394A5 /* ASButtonFollowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASButtonFollowerCell.h; sourceTree = "<group>"; };
+		6C9A99061B94CD6A00F394A5 /* ASButtonFollowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASButtonFollowerCell.m; sourceTree = "<group>"; };
+		6C9A99081B94CDC800F394A5 /* ASWallTextImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWallTextImageCell.h; sourceTree = "<group>"; };
+		6C9A99091B94CDC800F394A5 /* ASWallTextImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASWallTextImageCell.m; sourceTree = "<group>"; };
+		6C9A990B1B94CE7200F394A5 /* ASWallTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWallTextCell.h; sourceTree = "<group>"; };
+		6C9A990C1B94CE7200F394A5 /* ASWallTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASWallTextCell.m; sourceTree = "<group>"; };
+		6C9A99101B94D00C00F394A5 /* ASFriendTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFriendTVC.h; sourceTree = "<group>"; };
+		6C9A99111B94D00C00F394A5 /* ASFriendTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFriendTVC.m; sourceTree = "<group>"; };
+		6C9A99131B94D03F00F394A5 /* ASUserTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserTVC.h; sourceTree = "<group>"; };
+		6C9A99141B94D03F00F394A5 /* ASUserTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserTVC.m; sourceTree = "<group>"; };
+		6C9A99161B94D06900F394A5 /* ASFollowerSubscriptionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFollowerSubscriptionTVC.h; sourceTree = "<group>"; };
+		6C9A99171B94D06900F394A5 /* ASFollowerSubscriptionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFollowerSubscriptionTVC.m; sourceTree = "<group>"; };
 		6CCEF4C71B922AD300E1A11B /* HW_45_VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW_45_VK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCEF4CB1B922AD300E1A11B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CCEF4CC1B922AD300E1A11B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -62,10 +101,81 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C636BA61B94DA95001E55A1 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				6C636BA71B94DB89001E55A1 /* ASServerManager.h */,
+				6C636BA81B94DB89001E55A1 /* ASServerManager.m */,
+			);
+			name = Server;
+			path = HW_45_VK;
+			sourceTree = "<group>";
+		};
+		6C636BAA1B94DD68001E55A1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C636BAB1B94DD79001E55A1 /* ASUser.h */,
+				6C636BAC1B94DD79001E55A1 /* ASUser.m */,
+				6C636BAE1B94DD84001E55A1 /* ASFriend.h */,
+				6C636BAF1B94DD84001E55A1 /* ASFriend.m */,
+				6C636BB11B94DDAA001E55A1 /* ASFollowerSubscription.h */,
+				6C636BB21B94DDAA001E55A1 /* ASFollowerSubscription.m */,
+			);
+			name = Model;
+			path = HW_45_VK;
+			sourceTree = "<group>";
+		};
+		6C636BB41B94E7A3001E55A1 /* Friend Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6C636BB51B94E7D2001E55A1 /* ASSubtitleCell.h */,
+				6C636BB61B94E7D2001E55A1 /* ASSubtitleCell.m */,
+			);
+			name = "Friend Custom Cell";
+			path = HW_45_VK;
+			sourceTree = "<group>";
+		};
+		6C9A990E1B94CF9500F394A5 /* User Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6C9A98FF1B94CC8C00F394A5 /* ASGeneralCell.h */,
+				6C9A99001B94CC8C00F394A5 /* ASGeneralCell.m */,
+				6C9A99021B94CCB300F394A5 /* ASStatusCell.h */,
+				6C9A99031B94CCB300F394A5 /* ASStatusCell.m */,
+				6C9A99051B94CD6A00F394A5 /* ASButtonFollowerCell.h */,
+				6C9A99061B94CD6A00F394A5 /* ASButtonFollowerCell.m */,
+				6C9A99081B94CDC800F394A5 /* ASWallTextImageCell.h */,
+				6C9A99091B94CDC800F394A5 /* ASWallTextImageCell.m */,
+				6C9A990B1B94CE7200F394A5 /* ASWallTextCell.h */,
+				6C9A990C1B94CE7200F394A5 /* ASWallTextCell.m */,
+			);
+			name = "User Custom Cell";
+			path = HW_45_VK;
+			sourceTree = "<group>";
+		};
+		6C9A990F1B94CFCD00F394A5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6C9A99101B94D00C00F394A5 /* ASFriendTVC.h */,
+				6C9A99111B94D00C00F394A5 /* ASFriendTVC.m */,
+				6C9A99131B94D03F00F394A5 /* ASUserTVC.h */,
+				6C9A99141B94D03F00F394A5 /* ASUserTVC.m */,
+				6C9A99161B94D06900F394A5 /* ASFollowerSubscriptionTVC.h */,
+				6C9A99171B94D06900F394A5 /* ASFollowerSubscriptionTVC.m */,
+			);
+			name = "View Controllers";
+			path = HW_45_VK;
+			sourceTree = "<group>";
+		};
 		6CCEF4BE1B922AD300E1A11B = {
 			isa = PBXGroup;
 			children = (
 				6CCEF4C91B922AD300E1A11B /* HW_45_VK */,
+				6C636BA61B94DA95001E55A1 /* Server */,
+				6C9A990F1B94CFCD00F394A5 /* View Controllers */,
+				6C636BAA1B94DD68001E55A1 /* Model */,
+				6C9A990E1B94CF9500F394A5 /* User Custom Cell */,
+				6C636BB41B94E7A3001E55A1 /* Friend Custom Cell */,
 				6CCEF4E61B922AD400E1A11B /* HW_45_VKTests */,
 				6CCEF4C81B922AD300E1A11B /* Products */,
 				80A0548F18982311E74AD778 /* Pods */,
@@ -274,7 +384,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CCEF4D01B922AD300E1A11B /* AppDelegate.m in Sources */,
+				6C9A99121B94D00C00F394A5 /* ASFriendTVC.m in Sources */,
+				6C9A99041B94CCB300F394A5 /* ASStatusCell.m in Sources */,
+				6C9A990A1B94CDC800F394A5 /* ASWallTextImageCell.m in Sources */,
+				6C636BB01B94DD84001E55A1 /* ASFriend.m in Sources */,
+				6C9A99151B94D03F00F394A5 /* ASUserTVC.m in Sources */,
+				6C636BA91B94DB89001E55A1 /* ASServerManager.m in Sources */,
+				6C9A990D1B94CE7200F394A5 /* ASWallTextCell.m in Sources */,
+				6C636BB71B94E7D2001E55A1 /* ASSubtitleCell.m in Sources */,
 				6CCEF4CD1B922AD300E1A11B /* main.m in Sources */,
+				6C9A99071B94CD6A00F394A5 /* ASButtonFollowerCell.m in Sources */,
+				6C9A99181B94D06900F394A5 /* ASFollowerSubscriptionTVC.m in Sources */,
+				6C636BAD1B94DD79001E55A1 /* ASUser.m in Sources */,
+				6C636BB31B94DDAA001E55A1 /* ASFollowerSubscription.m in Sources */,
+				6C9A99011B94CC8C00F394A5 /* ASGeneralCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
