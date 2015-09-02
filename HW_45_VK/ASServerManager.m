@@ -64,7 +64,7 @@
      
                               success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject) {
                                   
-                                  NSLog(@"JSON - %@",responseObject);
+                                 // NSLog(@"JSON - %@",responseObject);
                                   
                                   NSArray* friendsArray = [responseObject objectForKey:@"response"];
                                   NSMutableArray* objectsArray = [NSMutableArray array];
@@ -93,6 +93,7 @@
 
 
 
+
 - (void) getUsersInfoUserID:(NSString*) userId
                   onSuccess:(void(^)(ASUser* user)) success
                   onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure {
@@ -102,7 +103,7 @@
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                             userId,          @"user_ids",
-                            @"photo_max_orig,city,sex,bdate,status,city,online",  @"fields",
+                            @"photo_max_orig,country,city,sex,bdate,status,online",  @"fields",
                             @"nom",             @"name_case", nil];
     
     
@@ -118,9 +119,9 @@
                                   ASUser* user = nil;
                                   
                                   for (NSDictionary* dict in friendsArray) {
-                                      
                                       user = [[ASUser alloc] initWithServerResponse:dict];
                                   }
+                                
                                   
                                   if (success) {
                                       success(user);
@@ -136,5 +137,46 @@
                               }];
 }
 
+- (void)getCounteresInfoByID:(NSString *)ids
+                   onSuccess:(void (^) (NSString *country)) success
+                   onFailure:(void (^) (NSError *error)) failure {
+    
+    NSDictionary *paramDictionary = [NSDictionary dictionaryWithObjectsAndKeys:ids,@"country_ids", nil];
+
+    [self.requestOperationManager GET:@"database.getCountriesById" parameters:paramDictionary
+                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSArray *objects =   [responseObject objectForKey:@"response"];
+        NSString* country = [[objects firstObject] objectForKey:@"name"];
+
+        success(country);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+    
+}
+
+
+
+
+
+
+- (void)getCityInfoByID:(NSString *)ids onSuccess:(void (^) (NSString *city)) success onFailure:(void (^) (NSError *error)) failure {
+    
+    NSDictionary *paramDictionary = [NSDictionary dictionaryWithObjectsAndKeys:ids,@"city_ids", nil];
+    
+    [self.requestOperationManager GET:@"database.getCitiesById" parameters:paramDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSArray *objects = [responseObject objectForKey:@"response"];
+        NSString* city = [[objects firstObject] objectForKey:@"name"];
+        
+        success(city);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+    
+}
 
 @end

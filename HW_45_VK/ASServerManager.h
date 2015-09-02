@@ -50,7 +50,14 @@
                   onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;
 
 
-- (void)getCityInfoByID:(NSString *)ids onSuccess:(void (^) (NSString *city)) success onFailure:(void (^) (NSError *error)) failure;
+- (void)getCounteresInfoByID:(NSString *)ids
+              onSuccess:(void (^) (NSString *country)) success
+              onFailure:(void (^) (NSError *error)) failure;
+
+
+- (void)getCityInfoByID:(NSString *)ids
+              onSuccess:(void (^) (NSString *city)) success
+              onFailure:(void (^) (NSError *error)) failure;
 
 
 @end

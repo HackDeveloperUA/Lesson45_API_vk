@@ -14,8 +14,14 @@
 @property (strong, nonatomic) NSString* lastName;
 
 @property (strong, nonatomic) NSString* bdate;
+
+
+@property (strong, nonatomic) NSString* countryID;
+@property (strong, nonatomic) NSString* cityID;
+
 @property (strong, nonatomic) NSString* country;
 @property (strong, nonatomic) NSString* city;
+
 @property (strong, nonatomic) NSString* status;
 @property (assign, nonatomic) BOOL online;
 
@@ -24,5 +30,5 @@
 @property (strong, nonatomic) NSURL*    mainImageURL;
 
 -(instancetype) initWithServerResponse:(NSDictionary*) responseObject;
-
+-(void) superDescripton;
 @end
