@@ -18,6 +18,14 @@
 
 +(ASServerManager*) sharedManager;
 
+
+-(void) getWallWithID:(NSString*) userId
+           withOffset:(NSInteger) offset
+                count:(NSInteger) count
+            onSuccess:(void(^)(NSArray* wall)) success
+            onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;
+
+
 - (void) getFriendsWithOffset:(NSInteger) offset
                         count:(NSInteger) count
                     onSuccess:(void(^)(NSArray* friends)) success

@@ -7,9 +7,21 @@
 //
 
 #import "ASFollowerSubscriptionTVC.h"
+#import "ASSubtitleCell.h"
 
-@interface ASFollowerSubscriptionTVC ()
+#import "ASFollower.h"
+#import "ASSubscription.h"
 
+#import "ASServerManager.h"
+
+#import "AFNetWorking.h"
+#import "UIImageView+AFNetworking.h"
+
+
+@interface ASFollowerSubscriptionTVC () 
+
+@property (strong, nonatomic) NSMutableArray* arrayFollowerAndSubscription;
+@property (assign, nonatomic) BOOL loadingData;
 @end
 
 @implementation ASFollowerSubscriptionTVC
@@ -17,11 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.loadingData = YES;
+    self.arrayFollowerAndSubscription = [NSMutableArray array];
+    [self getSubscriptioFollowerFromServer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,29 +39,137 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [self.arrayFollowerAndSubscription count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+   
+    static NSString* identifierSubtitleCell = @"ASSubtitleCell";
     
-    // Configure the cell...
+    ASSubtitleCell* cell = (ASSubtitleCell*)[tableView dequeueReusableCellWithIdentifier:identifierSubtitleCell];
     
-    return cell;
+    if (!cell) {
+        cell = [[ASSubtitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierSubtitleCell];
+    }
+
+
+    if ([self.identifier isEqualToString:@"Subscriptions"]) {
+        
+        ASSubscription* subscription = [self.arrayFollowerAndSubscription objectAtIndex:indexPath.row];
+        cell.firstLabel.text  =  subscription.name;
+        cell.secondLabel.text =  subscription.memberCount;
+        [cell.userPhoto setImageWithURL:subscription.mainPhotoURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+
+        return cell;
+    }
+    
+    if ([self.identifier isEqualToString:@"Followers"]) {
+        
+        ASFollower* follower = [self.arrayFollowerAndSubscription objectAtIndex:indexPath.row];
+        
+        cell.firstLabel.text  = follower.fullName;
+        cell.secondLabel.text = follower.status;
+        
+        [cell.userPhoto setImageWithURL:follower.userPhotoURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+        
+        return cell;
+    }
+    
+    
+    return nil;
 }
-*/
+
+
+#pragma mark - Server
+
+-(void)  getSubscriptioFollowerFromServer {
+    
+ 
+    if ([self.identifier isEqualToString:@"Subscriptions"]) {
+        
+        [[ASServerManager sharedManager] getSubscriptionsWithId:self.ID
+                                                       onOffSet:[self.arrayFollowerAndSubscription count]
+                                                         count:20 onSuccess:^(NSArray *subcriptions) {
+                                                           
+                                                             if ([subcriptions count] > 0) {
+                                                                 
+                                                                 [self.arrayFollowerAndSubscription addObjectsFromArray:subcriptions];
+                                                                 
+                                                                 NSMutableArray* newPaths = [NSMutableArray array];
+                                                                 
+                                                                 for (int i = (int)[self.arrayFollowerAndSubscription count] - (int)[subcriptions count]; i < [self.arrayFollowerAndSubscription count]; i++){
+                                                                     [newPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                                                                 }
+                                                                 
+                                                                 [self.tableView beginUpdates];
+                                                                 [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationTop];
+                                                                 [self.tableView endUpdates];
+                                                                 self.loadingData = NO;
+                                                             }
+   
+                                                             
+                                                             
+                                                         } onFailure:^(NSError *error, NSInteger statusCode) {
+                                                             
+                                                         }];
+                                                                
+        
+    }else if ([self.identifier isEqualToString:@"Followers"]) {
+        
+        [[ASServerManager sharedManager] getFollowersWithId:self.ID
+                                                   onOffSet:[self.arrayFollowerAndSubscription count]
+                                                      count:20
+                                                  onSuccess:^(NSArray *followers) {
+            
+            if ([followers count] > 0) {
+                
+                [self.arrayFollowerAndSubscription addObjectsFromArray:followers];
+                
+                NSMutableArray* newPaths = [NSMutableArray array];
+                
+                for (int i = (int)[self.arrayFollowerAndSubscription count] - (int)[followers count]; i < [self.arrayFollowerAndSubscription count]; i++){
+                    [newPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
+                
+                [self.tableView beginUpdates];
+                [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationTop];
+                [self.tableView endUpdates];
+                self.loadingData = NO;
+            }
+
+        } onFailure:^(NSError *error, NSInteger statusCode) {
+            
+        }];
+    }
+    
+    
+}
+
+
+
+#pragma mark - UIScrollViewDelegate
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    
+    if ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height) {
+        if (!self.loadingData)
+        {
+            self.loadingData = YES;
+            [self getSubscriptioFollowerFromServer];
+        }
+    }
+}
+
 
 /*
 // Override to support conditional editing of the table view.

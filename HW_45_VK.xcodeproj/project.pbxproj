@@ -11,8 +11,11 @@
 		6C636BA91B94DB89001E55A1 /* ASServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BA81B94DB89001E55A1 /* ASServerManager.m */; };
 		6C636BAD1B94DD79001E55A1 /* ASUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BAC1B94DD79001E55A1 /* ASUser.m */; };
 		6C636BB01B94DD84001E55A1 /* ASFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BAF1B94DD84001E55A1 /* ASFriend.m */; };
-		6C636BB31B94DDAA001E55A1 /* ASFollowerSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BB21B94DDAA001E55A1 /* ASFollowerSubscription.m */; };
 		6C636BB71B94E7D2001E55A1 /* ASSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C636BB61B94E7D2001E55A1 /* ASSubtitleCell.m */; };
+		6C7A06731B970FD200EC5F4C /* ASFollower.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7A06721B970FD200EC5F4C /* ASFollower.m */; };
+		6C7A06761B97102200EC5F4C /* ASSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7A06751B97102200EC5F4C /* ASSubscription.m */; };
+		6C7A06791B975F2800EC5F4C /* ASWall.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7A06781B975F2800EC5F4C /* ASWall.m */; };
+		6C7A067C1B97778900EC5F4C /* ASWallTextLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7A067B1B97778900EC5F4C /* ASWallTextLink.m */; };
 		6C9A99011B94CC8C00F394A5 /* ASGeneralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99001B94CC8C00F394A5 /* ASGeneralCell.m */; };
 		6C9A99041B94CCB300F394A5 /* ASStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99031B94CCB300F394A5 /* ASStatusCell.m */; };
 		6C9A99071B94CD6A00F394A5 /* ASButtonFollowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9A99061B94CD6A00F394A5 /* ASButtonFollowerCell.m */; };
@@ -47,10 +50,16 @@
 		6C636BAC1B94DD79001E55A1 /* ASUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUser.m; sourceTree = "<group>"; };
 		6C636BAE1B94DD84001E55A1 /* ASFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFriend.h; sourceTree = "<group>"; };
 		6C636BAF1B94DD84001E55A1 /* ASFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFriend.m; sourceTree = "<group>"; };
-		6C636BB11B94DDAA001E55A1 /* ASFollowerSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFollowerSubscription.h; sourceTree = "<group>"; };
-		6C636BB21B94DDAA001E55A1 /* ASFollowerSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFollowerSubscription.m; sourceTree = "<group>"; };
 		6C636BB51B94E7D2001E55A1 /* ASSubtitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSubtitleCell.h; sourceTree = "<group>"; };
 		6C636BB61B94E7D2001E55A1 /* ASSubtitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSubtitleCell.m; sourceTree = "<group>"; };
+		6C7A06711B970FD200EC5F4C /* ASFollower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFollower.h; sourceTree = "<group>"; };
+		6C7A06721B970FD200EC5F4C /* ASFollower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFollower.m; sourceTree = "<group>"; };
+		6C7A06741B97102200EC5F4C /* ASSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSubscription.h; sourceTree = "<group>"; };
+		6C7A06751B97102200EC5F4C /* ASSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSubscription.m; sourceTree = "<group>"; };
+		6C7A06771B975F2700EC5F4C /* ASWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWall.h; sourceTree = "<group>"; };
+		6C7A06781B975F2800EC5F4C /* ASWall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASWall.m; sourceTree = "<group>"; };
+		6C7A067A1B97778900EC5F4C /* ASWallTextLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWallTextLink.h; sourceTree = "<group>"; };
+		6C7A067B1B97778900EC5F4C /* ASWallTextLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASWallTextLink.m; sourceTree = "<group>"; };
 		6C9A98FF1B94CC8C00F394A5 /* ASGeneralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASGeneralCell.h; sourceTree = "<group>"; };
 		6C9A99001B94CC8C00F394A5 /* ASGeneralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASGeneralCell.m; sourceTree = "<group>"; };
 		6C9A99021B94CCB300F394A5 /* ASStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStatusCell.h; sourceTree = "<group>"; };
@@ -116,10 +125,14 @@
 			children = (
 				6C636BAB1B94DD79001E55A1 /* ASUser.h */,
 				6C636BAC1B94DD79001E55A1 /* ASUser.m */,
+				6C7A06771B975F2700EC5F4C /* ASWall.h */,
+				6C7A06781B975F2800EC5F4C /* ASWall.m */,
 				6C636BAE1B94DD84001E55A1 /* ASFriend.h */,
 				6C636BAF1B94DD84001E55A1 /* ASFriend.m */,
-				6C636BB11B94DDAA001E55A1 /* ASFollowerSubscription.h */,
-				6C636BB21B94DDAA001E55A1 /* ASFollowerSubscription.m */,
+				6C7A06711B970FD200EC5F4C /* ASFollower.h */,
+				6C7A06721B970FD200EC5F4C /* ASFollower.m */,
+				6C7A06741B97102200EC5F4C /* ASSubscription.h */,
+				6C7A06751B97102200EC5F4C /* ASSubscription.m */,
 			);
 			name = Model;
 			path = HW_45_VK;
@@ -148,6 +161,8 @@
 				6C9A99091B94CDC800F394A5 /* ASWallTextImageCell.m */,
 				6C9A990B1B94CE7200F394A5 /* ASWallTextCell.h */,
 				6C9A990C1B94CE7200F394A5 /* ASWallTextCell.m */,
+				6C7A067A1B97778900EC5F4C /* ASWallTextLink.h */,
+				6C7A067B1B97778900EC5F4C /* ASWallTextLink.m */,
 			);
 			name = "User Custom Cell";
 			path = HW_45_VK;
@@ -388,15 +403,18 @@
 				6C9A99041B94CCB300F394A5 /* ASStatusCell.m in Sources */,
 				6C9A990A1B94CDC800F394A5 /* ASWallTextImageCell.m in Sources */,
 				6C636BB01B94DD84001E55A1 /* ASFriend.m in Sources */,
+				6C7A06731B970FD200EC5F4C /* ASFollower.m in Sources */,
 				6C9A99151B94D03F00F394A5 /* ASUserTVC.m in Sources */,
 				6C636BA91B94DB89001E55A1 /* ASServerManager.m in Sources */,
+				6C7A067C1B97778900EC5F4C /* ASWallTextLink.m in Sources */,
 				6C9A990D1B94CE7200F394A5 /* ASWallTextCell.m in Sources */,
 				6C636BB71B94E7D2001E55A1 /* ASSubtitleCell.m in Sources */,
+				6C7A06791B975F2800EC5F4C /* ASWall.m in Sources */,
 				6CCEF4CD1B922AD300E1A11B /* main.m in Sources */,
 				6C9A99071B94CD6A00F394A5 /* ASButtonFollowerCell.m in Sources */,
+				6C7A06761B97102200EC5F4C /* ASSubscription.m in Sources */,
 				6C9A99181B94D06900F394A5 /* ASFollowerSubscriptionTVC.m in Sources */,
 				6C636BAD1B94DD79001E55A1 /* ASUser.m in Sources */,
-				6C636BB31B94DDAA001E55A1 /* ASFollowerSubscription.m in Sources */,
 				6C9A99011B94CC8C00F394A5 /* ASGeneralCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

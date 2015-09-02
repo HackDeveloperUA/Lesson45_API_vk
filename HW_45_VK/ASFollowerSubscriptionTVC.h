@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ASFollowerSubscriptionTVC : UITableViewController
+@interface ASFollowerSubscriptionTVC : UITableViewController <UITableViewDataSource,UITableViewDelegate ,UIScrollViewDelegate>
+
+@property (strong, nonatomic) NSString* identifier;
+@property (strong, nonatomic) NSString* ID;
+
+-(void)  getSubscriptioFollowerFromServer;
 
 @end

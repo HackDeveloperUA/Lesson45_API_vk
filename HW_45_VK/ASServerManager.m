@@ -8,8 +8,12 @@
 
 #import "ASServerManager.h"
 
+#import "ASSubscription.h"
+#import "ASFollower.h"
+
 #import "ASFriend.h"
 #import "ASUser.h"
+#import "ASWall.h"
 
 @implementation ASServerManager
 
@@ -42,6 +46,62 @@
 
 #pragma mark - get data from server
 
+-(void) getWallWithID:(NSString*) userId
+           withOffset:(NSInteger) offset
+                count:(NSInteger) count
+            onSuccess:(void(^)(NSArray* wall)) success
+            onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure {
+    
+    
+    
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            userId,      @"owner_id",
+                            @(count),     @"count",
+                            @(offset),    @"offset",
+                            @"owner",  @"fields", nil];
+    
+    
+    
+    [self.requestOperationManager GET:@"wall.get"
+                           parameters:params
+     
+                              success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject) {
+                                  
+                                  NSArray* wallArray = [responseObject objectForKey:@"response"];
+                                  NSMutableArray* objectsArray = [NSMutableArray array];
+                            
+                                
+                                  for (int i=1; i<[wallArray count]; i++) {
+                                      
+                                      NSDictionary* dict = [wallArray objectAtIndex:i];
+                                      NSLog(@"responce Object = %@",dict);
+                
+                                      ASWall* wall = [[ASWall alloc] initWithServerResponse:dict];
+                                      [objectsArray addObject:wall];
+                                  }
+                                  
+                                  
+                                  if (success) {
+                                      success(objectsArray);
+                                  }
+                              }
+     
+     
+                              failure:^(AFHTTPRequestOperation *operation, NSError* error){
+                                  NSLog(@"Error: %@",error);
+                                  if (failure) {
+                                      failure(error, operation.response.statusCode);
+                                  }
+                              }];
+    
+}
+
+
+
+
+
+
+
 - (void) getFriendsWithOffset:(NSInteger) offset
                         count:(NSInteger) count
                     onSuccess:(void(^)(NSArray* friends)) success
@@ -50,11 +110,11 @@
     
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"201621080", @"user_id",
+                            @"10468851", @"user_id",
                             @"hints",    @"order",
                             @(count),     @"count",
                             @(offset),    @"offset",
-                            @"photo_100",  @"fields",
+                            @"photo_100,city,status",  @"fields",
                             @"nom",       @"name_case", nil];
     
     
@@ -64,7 +124,7 @@
      
                               success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject) {
                                   
-                                 // NSLog(@"JSON - %@",responseObject);
+                                  NSLog(@"JSON - %@",responseObject);
                                   
                                   NSArray* friendsArray = [responseObject objectForKey:@"response"];
                                   NSMutableArray* objectsArray = [NSMutableArray array];
@@ -76,7 +136,7 @@
                                       [objectsArray addObject:friend];
                                   }
                                   
-                                  
+                                 
                                   if (success) {
                                       success(objectsArray);
                                   }
@@ -178,5 +238,113 @@
     }];
     
 }
+
+
+
+
+- (void) getSubscriptionsWithId:(NSString*) userId
+                       onOffSet:(NSInteger) offset
+                          count:(NSInteger) count
+                      onSuccess:(void(^)(NSArray* subcriptions)) success
+                      onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure {
+    
+    
+    
+    // user_id extended offset count fields
+    
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            userId,        @"user_id",
+                            @"1",          @"extended",
+                            @(offset),     @"offset",
+                            @"20",         @"count",
+                            @"members_count,photo_100,status",  @"fields", nil];
+    
+    
+    
+    [self.requestOperationManager GET:@"users.getSubscriptions"
+                           parameters:params
+     
+                              success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject) {
+                                  
+                                  NSLog(@"users.getSubscriptions JSON: %@",responseObject);
+                                  
+                        
+                                  NSArray* subcriptArray = [responseObject objectForKey:@"response"];
+                                  NSMutableArray* objectsArray = [NSMutableArray array];
+                                  
+                                  
+                                  for (NSDictionary* dict in subcriptArray) {
+                                     
+                                      ASSubscription* subscript = [[ASSubscription alloc] initWithServerResponse:dict];
+                                      [objectsArray addObject:subscript];
+                                  }
+ 
+                                  
+                                  if (success) {
+                                      success(objectsArray);
+                                  }
+                              }
+     
+     
+                              failure:^(AFHTTPRequestOperation *operation, NSError* error){
+                                  NSLog(@"Error: %@",error);
+                                  if (failure) {
+                                      failure(error, operation.response.statusCode);
+                                  }
+                              }];
+    
+}
+
+
+
+
+- (void) getFollowersWithId:(NSString*) userId
+                   onOffSet:(NSInteger) offset
+                      count:(NSInteger) count
+                  onSuccess:(void(^)(NSArray* followers)) success
+                  onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure {
+    
+    
+    //user_id offset count fields name_case
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            userId,        @"user_id",
+                            @(offset),     @"offset",
+                            @(count),      @"count",
+                            @"photo_100,status",  @"fields",
+                            @"nom",        @"name_case", nil];
+    
+    
+    [self.requestOperationManager GET:@"users.getFollowers"
+                           parameters:params
+     
+                              success:^(AFHTTPRequestOperation *operation,NSDictionary *responseObject) {
+                                  
+                                  NSDictionary *dictsArray = [responseObject objectForKey:@"response"];
+                                  
+                                  NSArray *dictsArrayItems = [dictsArray objectForKey:@"items"];
+                                  
+                                  
+                                  NSMutableArray *objectArray = [NSMutableArray array];
+                                  
+                                  for (NSDictionary *dict in dictsArrayItems) {
+                                      ASFollower* follower = [[ASFollower alloc] initWithServerResponse:dict];
+                                      [objectArray addObject:follower];
+                                  }
+                                  
+                                  if (success) {
+                                      success(objectArray);
+                                  }
+                              }
+     
+     
+                              failure:^(AFHTTPRequestOperation *operation, NSError* error){
+                                  NSLog(@"Error: %@",error);
+                                  if (failure) {
+                                      failure(error, operation.response.statusCode);
+                                  }
+                              }];
+    
+}
+
 
 @end

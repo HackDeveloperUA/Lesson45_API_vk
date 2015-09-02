@@ -61,10 +61,19 @@
                     [newPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                 }
                 
+                 for (ASFriend* friend in friends) {
+                     [[ASServerManager sharedManager] getCityInfoByID:@(friend.cityID) onSuccess:^(NSString *city) {
+                         friend.city = city;
+                         [self.tableView reloadData];
+                     } onFailure:^(NSError *error) { }];
+                 }
+                 
+                 
+    
                 [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationTop];
                 [self.tableView endUpdates];
-                self.loadingData = YES;
+                self.loadingData = NO;
              }
                                                     
         }
@@ -107,7 +116,6 @@
 
     static NSString* identifier = @"ASSubtitleCell";
     
-    //UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     ASSubtitleCell* cell = (ASSubtitleCell*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[ASSubtitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
@@ -116,9 +124,13 @@
     
     ASFriend* friend = [self.arrayFriends objectAtIndex:indexPath.row];
     
-    //cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", friend.firstName, friend.lastName];
     cell.firstLabel.text = [NSString stringWithFormat:@"%@ %@", friend.firstName, friend.lastName];
-    
+    if (friend.city) {
+        cell.secondLabel.text = friend.city;
+    } else if (friend.status) {
+        cell.secondLabel.text = friend.status;
+
+    }
     
     NSURLRequest* request = [NSURLRequest requestWithURL:friend.imageURL];
     

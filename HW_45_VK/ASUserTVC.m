@@ -13,14 +13,19 @@
 #import "ASButtonFollowerCell.h"
 #import "ASWallTextImageCell.h"
 #import "ASWallTextCell.h"
+#import "ASWallTextLink.h"
 
 
 #import "ASServerManager.h"
 #import "ASUser.h"
 #import "ASFriend.h"
+#import "ASWall.h"
+
 
 #import "AFNetWorking.h"
 #import "UIImageView+AFNetworking.h"
+
+#import "ASFollowerSubscriptionTVC.h"
 
 @interface ASUserTVC ()
 
@@ -36,6 +41,7 @@ static NSString* identifierStatus         = @"ASStatusCell";
 static NSString* identifierButtonFollower = @"ASButtonFollowerCell";
 static NSString* identifierWallTextImage  = @"ASWallTextImageCell";
 static NSString* identifierWallText       = @"ASWallTextCell";
+static NSString* identifierWallLink       = @"ASWallTextLink";
 
 
 @implementation ASUserTVC
@@ -47,6 +53,7 @@ static NSString* identifierWallText       = @"ASWallTextCell";
     //self.currentUser = [[ASUser alloc] init];
     self.arrrayWall  = [NSMutableArray array];
     [self getUserFromServer];
+    [self getWallFromServer];
 
 }
 
@@ -58,7 +65,7 @@ static NSString* identifierWallText       = @"ASWallTextCell";
 
 
 
-#pragma mark - get friends from server
+#pragma mark - Get Friends From Server
 
 -(void)  getUserFromServer {
     
@@ -67,7 +74,7 @@ static NSString* identifierWallText       = @"ASWallTextCell";
     
       [[ASServerManager sharedManager] getCityInfoByID:self.currentUser.cityID onSuccess:^(NSString *city) {
           
-          self.currentUser.city = city;
+      self.currentUser.city = city;
           
       } onFailure:^(NSError *error)     { }];
       
@@ -86,13 +93,52 @@ static NSString* identifierWallText       = @"ASWallTextCell";
   } onFailure:^(NSError *error, NSInteger statusCode) {
       NSLog(@"errpr = %@ statsus %d",[error localizedDescription],statusCode);
   }];
-    
-    
-
-    
-
-  
 }
+
+
+
+#pragma mark - Get Wall From Server
+
+-(void)  getWallFromServer {
+
+    NSLog(@"[count ] %d",[self.arrrayWall count]);
+    
+  [[ASServerManager sharedManager] getWallWithID:self.userID
+                                      withOffset:[self.arrrayWall count]
+                                           count:2
+                                       onSuccess:^(NSArray *wall) {
+                                           
+                                        /*
+                                           if ([wall count] > 0) {
+                                               
+                                               [self.arrrayWall addObjectsFromArray:wall];
+                                               
+                                               NSMutableArray* newPaths = [NSMutableArray array];
+                                               
+                                               for (int i = (int)[self.arrrayWall count] - (int)[wall count]; i < [self.arrrayWall count]; i++){
+                                                   [newPaths addObject:[NSIndexPath indexPathForRow:i inSection:1]];
+                                               }
+                                               
+                                               [self.tableView beginUpdates];
+                                               [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationTop];
+                                               [self.tableView endUpdates];
+                                               self.loadingData = NO;
+                                           }*/
+    
+                                           if ([wall count] > 0) {
+                                               [self.arrrayWall addObjectsFromArray:wall];
+                                               [self.tableView reloadData];
+                                               self.loadingData = NO;
+                                           }
+                                           
+                                           
+                                       } onFailure:^(NSError *error, NSInteger statusCode) {    }];
+    
+    
+
+}
+
+
 
 #pragma mark - UITabelViewDataSource
 
@@ -172,12 +218,113 @@ static NSString* identifierWallText       = @"ASWallTextCell";
             
           return cell;
         }
+     }
+    
+    
+    if (indexPath.section == 1) {
+
+        ASWall* wall = [self.arrrayWall objectAtIndex:indexPath.row];
+    
+        if ([wall.type isEqualToString:@"photo"] || [wall.type isEqualToString:@"video"]  ||  [wall.type isEqualToString:@"album"])
+        {
+          
+                    ASWallTextImageCell* cell = (ASWallTextImageCell*)[tableView dequeueReusableCellWithIdentifier:identifierWallTextImage];
+                    
+                    if (!cell) {
+                        cell = [[ASWallTextImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierWallTextImage];
+                    }
+                    
+                    
+                    [cell.userPhoto setImageWithURL:self.currentUser.mainImageURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+                    [cell.postPhoto setImageWithURL:wall.postPhoto placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+                    
+                    cell.fullName.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName,_currentUser.lastName];
+                    cell.date.text     = wall.date;
+                    
+                    if (wall.text) {
+                        cell.superText.text = wall.text;
+                    } else { cell.superText = nil; }
+                    
+                    //cell.commentLabel.text = wall.comments;
+                    //cell.likeLabel.text    = wall.likes;
+                    //cell.repostLabel.text  = wall.reposts;
+                    
+                    [cell.commentButton addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell.likeButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell.repostButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return cell;
+            
+        }
+    
         
+        if ([wall.type isEqualToString:@"post"]) {
+        
+            ASWallTextCell* cell = (ASWallTextCell*)[tableView dequeueReusableCellWithIdentifier:identifierWallText];
+            
+            if (!cell) {
+                cell = [[ASWallTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierWallText];
+            }
+ 
+            [cell.userPhoto setImageWithURL:self.currentUser.mainImageURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+            
+            cell.fullName.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName,_currentUser.lastName];
+            cell.date.text     = wall.date;
+            
+            if (wall.text) {
+                cell.superText.text = wall.text;
+            } else { cell.superText = nil; }
+            
+            //cell.commentLabel.text = wall.comments;
+            //cell.likeLabel.text    = wall.likes;
+            //cell.repostLabel.text  = wall.reposts;
+            
+            [cell.commentButton addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.likeButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.repostButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+         return cell;
+            
+        }
+        
+        
+        
+        if ([wall.type isEqualToString:@"link"]) {
+            
+            ASWallTextLink* cell = (ASWallTextLink*)[tableView dequeueReusableCellWithIdentifier:identifierWallLink];
+            
+            if (!cell) {
+                cell = [[ASWallTextLink alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierWallLink];
+            }
+            
+            [cell.userPhoto setImageWithURL:self.currentUser.mainImageURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+            [cell.imagePost setImageWithURL:wall.postPhoto placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+
+            cell.fullName.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName,_currentUser.lastName];
+            cell.date.text     = wall.date;
+            
+            cell.superText1.text = wall.text;
+            cell.superText2.text = wall.text2;
+            
+            //cell.commentLabel.text = wall.comments;
+            //cell.likeLabel.text    = wall.likes;
+            //cell.repostLabel.text  = wall.reposts;
+            
+            [cell.commentButton addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.likeButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.repostButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return cell;
+            
+        }
         
     }
     
+    
+    
     return nil;
 }
+
 
 #pragma mark - UITableViewDelegate
 
@@ -204,29 +351,12 @@ static NSString* identifierWallText       = @"ASWallTextCell";
     if ([cell isKindOfClass:[ASWallTextCell class]]) {
         return 162.f;
         }
-        
-    /*
-    if ([cell.reuseIdentifier isEqualToString:identifierGeneral]) {
-        return 220.f;
-    }
 
-    if ([cell.reuseIdentifier isEqualToString:identifierStatus]) {
-        return 45.f;
-    }
-    
-    if ([cell.reuseIdentifier isEqualToString:identifierButtonFollower]) {
-        return 62.f;
-    }
-
-    if ([cell.reuseIdentifier isEqualToString:identifierWallTextImage]) {
-        return 337.f;
-    }
-
-    if ([cell.reuseIdentifier isEqualToString:identifierWallText]) {
+    if ([cell isKindOfClass:[ASWallTextLink class]]) {
         return 162.f;
     }
-    */
-
+    
+    
     return 10.f;
 }
 
@@ -241,7 +371,7 @@ static NSString* identifierWallText       = @"ASWallTextCell";
         if (!self.loadingData)
         {
             self.loadingData = YES;
-           // [self getFriendsFromServer];
+            [self getWallFromServer];
         }
     }
 }
@@ -249,60 +379,40 @@ static NSString* identifierWallText       = @"ASWallTextCell";
 #pragma mark - Action Subscription Button
 
 -(void) subscriptionFollowerAction:(UIButton*) sender {
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ASFollowerSubscriptionTVC *detailVC = (ASFollowerSubscriptionTVC*)[storyboard  instantiateViewControllerWithIdentifier:@"ASFollowerSubscriptionTVC"];
     
     
     if (sender.tag == 100) {
-        
+        detailVC.identifier = @"Subscriptions";
+        detailVC.ID = self.userID;
+        [self.navigationController pushViewController:detailVC animated:YES];
     }
     
     if (sender.tag == 200) {
-        
+        detailVC.ID = self.userID;
+        detailVC.identifier = @"Followers";
+        [self.navigationController pushViewController:detailVC animated:YES];
     }
     
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+#pragma mark - Action Like/Repost/Comment Button
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+-(void) likeRepostCommentAction:(UIButton*) sender {
+    
+    if (sender.tag == 100) {
+    }
+    if (sender.tag == 200) {
+    }
+    if (sender.tag == 300) {
+    }
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

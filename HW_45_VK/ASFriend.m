@@ -19,6 +19,10 @@
         self.lastName  = [responseObject objectForKey:@"last_name"];
         self.userID    = [responseObject objectForKey:@"user_id"];
         
+        self.status    =  [responseObject objectForKey:@"status"];
+        self.cityID = [[responseObject objectForKey:@"city"] integerValue];
+
+            
         NSString* urlString = [responseObject objectForKey:@"photo_100"];
         
         if (urlString) {
