@@ -53,7 +53,7 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
     //self.currentUser = [[ASUser alloc] init];
     self.arrrayWall  = [NSMutableArray array];
     [self getUserFromServer];
-    [self getWallFromServer];
+    //[self getWallFromServer];
 
 }
 
@@ -101,14 +101,14 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
 
 -(void)  getWallFromServer {
 
-    NSLog(@"[count ] %d",[self.arrrayWall count]);
+    NSLog(@"[count ] =====  %d",[self.arrrayWall count]);
     
   [[ASServerManager sharedManager] getWallWithID:self.userID
                                       withOffset:[self.arrrayWall count]
-                                           count:2
+                                           count:20
                                        onSuccess:^(NSArray *wall) {
                                            
-                                        /*
+                                        
                                            if ([wall count] > 0) {
                                                
                                                [self.arrrayWall addObjectsFromArray:wall];
@@ -123,14 +123,11 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
                                                [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationTop];
                                                [self.tableView endUpdates];
                                                self.loadingData = NO;
-                                           }*/
-    
-                                           if ([wall count] > 0) {
-                                               [self.arrrayWall addObjectsFromArray:wall];
-                                               [self.tableView reloadData];
-                                               self.loadingData = NO;
+                                           } else {
+                                               
+                                               [[[UIAlertView alloc] initWithTitle:@"Страница скрыта" message:@"Страница доступна только авторизованным пользователям." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign In",nil] show];
                                            }
-                                           
+
                                            
                                        } onFailure:^(NSError *error, NSInteger statusCode) {    }];
     
@@ -224,8 +221,10 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
     if (indexPath.section == 1) {
 
         ASWall* wall = [self.arrrayWall objectAtIndex:indexPath.row];
-    
-        if ([wall.type isEqualToString:@"photo"] || [wall.type isEqualToString:@"video"]  ||  [wall.type isEqualToString:@"album"])
+        NSLog(@"wall.type = %@",wall.type);
+        
+        
+        if ([wall.type isEqualToString:@"photo"] || [wall.type isEqualToString:@"video"]  ||  [wall.type isEqualToString:@"album"] ||  [wall.type isEqualToString:@"graffiti"] )
         {
           
                     ASWallTextImageCell* cell = (ASWallTextImageCell*)[tableView dequeueReusableCellWithIdentifier:identifierWallTextImage];
@@ -236,7 +235,7 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
                     
                     
                     [cell.userPhoto setImageWithURL:self.currentUser.mainImageURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
-                    [cell.postPhoto setImageWithURL:wall.postPhoto placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+                    [cell.postPhoto setImageWithURL:wall.postPhoto placeholderImage:[UIImage imageNamed:@"placeholder-03"]];
                     
                     cell.fullName.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName,_currentUser.lastName];
                     cell.date.text     = wall.date;
@@ -245,9 +244,9 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
                         cell.superText.text = wall.text;
                     } else { cell.superText = nil; }
                     
-                    //cell.commentLabel.text = wall.comments;
-                    //cell.likeLabel.text    = wall.likes;
-                    //cell.repostLabel.text  = wall.reposts;
+                    cell.commentLabel.text = wall.comments;
+                    cell.likeLabel.text    = wall.likes;
+                    cell.repostLabel.text  = wall.reposts;
                     
                     [cell.commentButton addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
                     [cell.likeButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -258,7 +257,7 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
         }
     
         
-        if ([wall.type isEqualToString:@"post"]) {
+        if ([wall.type isEqualToString:@"post"] || [wall.type isEqualToString:@"copy"] || [wall.type isEqualToString:@"audio"]) {
         
             ASWallTextCell* cell = (ASWallTextCell*)[tableView dequeueReusableCellWithIdentifier:identifierWallText];
             
@@ -275,9 +274,9 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
                 cell.superText.text = wall.text;
             } else { cell.superText = nil; }
             
-            //cell.commentLabel.text = wall.comments;
-            //cell.likeLabel.text    = wall.likes;
-            //cell.repostLabel.text  = wall.reposts;
+            cell.commentLabel.text = wall.comments;
+            cell.likeLabel.text    = wall.likes;
+            cell.repostLabel.text  = wall.reposts;
             
             [cell.commentButton addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
             [cell.likeButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -289,7 +288,7 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
         
         
         
-        if ([wall.type isEqualToString:@"link"]) {
+        if ([wall.type isEqualToString:@"link"] ) {
             
             ASWallTextLink* cell = (ASWallTextLink*)[tableView dequeueReusableCellWithIdentifier:identifierWallLink];
             
@@ -298,7 +297,7 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
             }
             
             [cell.userPhoto setImageWithURL:self.currentUser.mainImageURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
-            [cell.imagePost setImageWithURL:wall.postPhoto placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+            [cell.imagePost setImageWithURL:wall.postPhoto placeholderImage:[UIImage imageNamed:@"default"]];
 
             cell.fullName.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName,_currentUser.lastName];
             cell.date.text     = wall.date;
@@ -306,9 +305,9 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
             cell.superText1.text = wall.text;
             cell.superText2.text = wall.text2;
             
-            //cell.commentLabel.text = wall.comments;
-            //cell.likeLabel.text    = wall.likes;
-            //cell.repostLabel.text  = wall.reposts;
+            cell.commentLabel.text = wall.comments;
+            cell.likeLabel.text    = wall.likes;
+            cell.repostLabel.text  = wall.reposts;
             
             [cell.commentButton addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
             [cell.likeButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -317,6 +316,36 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
             return cell;
             
         }
+        
+        if ([wall.type isEqualToString:@"doc"] ) {
+            
+            ASWallTextLink* cell = (ASWallTextLink*)[tableView dequeueReusableCellWithIdentifier:identifierWallLink];
+            
+            if (!cell) {
+                cell = [[ASWallTextLink alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierWallLink];
+            }
+            
+            [cell.userPhoto setImageWithURL:self.currentUser.mainImageURL placeholderImage:[UIImage imageNamed:@"placeholder-hi"]];
+            
+            cell.fullName.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName,_currentUser.lastName];
+            cell.date.text     = wall.date;
+            
+            cell.superText1.text = wall.text;
+            //cell.superText2.text = wall.urlLink;
+            
+            cell.commentLabel.text = wall.comments;
+            cell.likeLabel.text    = wall.likes;
+            cell.repostLabel.text  = wall.reposts;
+            
+            [cell.commentButton addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.likeButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.repostButton     addTarget:self action:@selector(likeRepostCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return cell;
+            
+        }
+        
+        
         
     }
     
@@ -403,12 +432,22 @@ static NSString* identifierWallLink       = @"ASWallTextLink";
 
 -(void) likeRepostCommentAction:(UIButton*) sender {
     
+    
+    NSString* title = @"Ошибка доступа";
+    NSString* message;
+    
+    
     if (sender.tag == 100) {
+        message = @"Функция Комментарии доступна только авторизированым пользователям";
     }
     if (sender.tag == 200) {
+        message = @"Функция Лайк доступна только авторизированым пользователям";
     }
     if (sender.tag == 300) {
+        message = @"Функция Репост доступна только авторизированым пользователям";
     }
+    
+    [[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign in",nil] show];
 }
 
 

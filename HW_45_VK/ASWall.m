@@ -31,11 +31,21 @@
         self.date        = date;
         self.text        = [responseObject objectForKey:@"text"];
 
-        self.comments = [[responseObject objectForKey:@"comments"] objectForKey:@"count"];
-        self.likes    = [[responseObject objectForKey:@"likes"]    objectForKey:@"count"];
-        self.reposts  = [[responseObject objectForKey:@"reposts"]  objectForKey:@"count"];
+        self.comments = [[[responseObject objectForKey:@"comments"] objectForKey:@"count"] stringValue];
+        self.likes    = [[[responseObject objectForKey:@"likes"]    objectForKey:@"count"] stringValue];
+        self.reposts  = [[[responseObject objectForKey:@"reposts"]  objectForKey:@"count"] stringValue];
         
-
+       
+        
+            if ([self.type isEqualToString:@"graffiti"]) {
+            
+                NSString* urlString = [[[responseObject objectForKey:@"attachment"] objectForKey:@"graffiti"] objectForKey:@"src_big"];
+                
+                if (urlString) {
+                    self.postPhoto = [NSURL URLWithString:urlString];
+                }
+            }
+        
         
             if ([self.type isEqualToString:@"photo"]) {
             
@@ -72,6 +82,15 @@
                 self.postPhoto = [NSURL URLWithString:urlString];
             }
          }
+        
+        
+        if ([self.type isEqualToString:@"doc"]) {
+            
+           // NSString* urlString = [[[responseObject objectForKey:@"attachment"] objectForKey:@"doc" ]objectForKey:@"url"];
+           // self.urlLink = [NSURL URLWithString:urlString];
+            
+        }
+        
         
         
         

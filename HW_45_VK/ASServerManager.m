@@ -70,16 +70,23 @@
                                   NSArray* wallArray = [responseObject objectForKey:@"response"];
                                   NSMutableArray* objectsArray = [NSMutableArray array];
                             
-                                
-                                  for (int i=1; i<[wallArray count]; i++) {
-                                      
-                                      NSDictionary* dict = [wallArray objectAtIndex:i];
-                                      NSLog(@"responce Object = %@",dict);
-                
-                                      ASWall* wall = [[ASWall alloc] initWithServerResponse:dict];
-                                      [objectsArray addObject:wall];
-                                  }
                                   
+                                 
+                                  NSLog(@" [wallArray] = %@",wallArray);
+                                  NSLog(@" [wallArray count] = %d",[wallArray count]);
+                                  
+                                  if (wallArray) {
+                                    
+                                      //-1
+                                      for (int i=1; i<[wallArray count]-1; i++) {
+                                          
+                                          NSDictionary* dict = [wallArray objectAtIndex:i];
+                                          NSLog(@"responce Object = %@",dict);
+                    
+                                          ASWall* wall = [[ASWall alloc] initWithServerResponse:dict];
+                                          [objectsArray addObject:wall];
+                                      }
+                                  }
                                   
                                   if (success) {
                                       success(objectsArray);
