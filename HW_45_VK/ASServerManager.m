@@ -70,11 +70,7 @@
                                   NSArray* wallArray = [responseObject objectForKey:@"response"];
                                   NSMutableArray* objectsArray = [NSMutableArray array];
                             
-                                  
-                                 
-                                  NSLog(@" [wallArray] = %@",wallArray);
-                                  NSLog(@" [wallArray count] = %d",[wallArray count]);
-                                  
+                            
                                   if (wallArray) {
                                     
                                       //-1
@@ -117,7 +113,7 @@
     
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"10468851", @"user_id",
+                            @"201621080", @"user_id",
                             @"hints",    @"order",
                             @(count),     @"count",
                             @(offset),    @"offset",
@@ -131,7 +127,7 @@
      
                               success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject) {
                                   
-                                  NSLog(@"JSON - %@",responseObject);
+                                  //NSLog(@"JSON - %@",responseObject);
                                   
                                   NSArray* friendsArray = [responseObject objectForKey:@"response"];
                                   NSMutableArray* objectsArray = [NSMutableArray array];
@@ -180,7 +176,7 @@
      
                               success:^(AFHTTPRequestOperation *operation, NSDictionary* responseObject) {
                                   
-                                  NSLog(@"JSON: %@",responseObject);
+                                  //NSLog(@"JSON: %@",responseObject);
                                   
                                   NSArray* friendsArray = [responseObject objectForKey:@"response"];
                                   ASUser* user = nil;

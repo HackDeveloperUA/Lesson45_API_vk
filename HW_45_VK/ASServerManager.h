@@ -50,9 +50,6 @@
 
 
 
-
-
-
 - (void) getUsersInfoUserID:(NSString*) userId
                   onSuccess:(void(^)(ASUser* user)) success
                   onFailure:(void(^)(NSError* error, NSInteger statusCode)) failure;

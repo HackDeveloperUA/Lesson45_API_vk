@@ -35,25 +35,6 @@
         self.cityID    = [responseObject objectForKey:@"city"];
         self.countryID = [responseObject objectForKey:@"country"];
         
-        /*
-        NSLog(@"Передаю city = %@",self.city);
-        NSLog(@"Передаю country = %@",self.country);
-        
-        [[ASServerManager sharedManager] getCityInfoByID:self.city onSuccess:^(NSString *city) {
-            NSLog(@"Принял city = %@",city);
-            self.city = city;
-        } onFailure:^(NSError *error) {
-            NSLog(@"error = %@",[error localizedDescription]);
-        }];
-        
-        [[ASServerManager sharedManager] getCounteresInfoByID:self.country onSuccess:^(NSString *country) {
-            NSLog(@"Принял country = %@",country);
-            self.country = country;
-
-        } onFailure:^(NSError *error) {
-            NSLog(@"error = %@",[error localizedDescription]);
-        }];
-        */
         
         self.online  = [[responseObject objectForKey:@"online"] boolValue];
         
@@ -69,22 +50,7 @@
 }
 
 -(void) superDescripton {
-    /*
-     
-     @property (strong, nonatomic) NSString* firstName;
-     @property (strong, nonatomic) NSString* lastName;
-     
-     @property (strong, nonatomic) NSString* bdate;
-     @property (strong, nonatomic) NSString* country;
-     @property (strong, nonatomic) NSString* city;
-     @property (strong, nonatomic) NSString* status;
-     @property (assign, nonatomic) BOOL online;
-     
-     
-     @property (strong, nonatomic) NSString* userID;
-     @property (strong, nonatomic) NSURL*    mainImageURL;
 
-    */
     NSLog(@"\n\n\n\n\n\n");
     NSLog(@"First Name = %@",self.firstName);
     NSLog(@"Last Name  = %@",self.lastName);
@@ -101,17 +67,6 @@
     
     
 }
-/*
--(NSString*) transformDate:(float) date {
-    
-    NSDateFormatter *dateFormater = [[NSDateFormatter alloc]init];
-    [dateFormater setDateFormat:@"dd MMM yyyy "];
-    
-    NSDate *dateTime = [NSDate dateWithTimeIntervalSince1970:date];
-    NSString *date = [dateFormater stringFromDate:dateTime];
-    
-    return date;
-}*/
 
 
 @end
